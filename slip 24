@@ -1,0 +1,90 @@
+slip 24 }
+Q.1] Write an application to accept a string from the user. With two buttons to
+display the string in Uppercase and Lowercase using the toast message.
+Ans :-#activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter a string"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/buttonUpperCase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="To Uppercase"/>
+
+        <Button
+            android:id="@+id/buttonLowerCase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="To Lowercase"/>
+    </LinearLayout>
+
+</LinearLayout>
+#MainActivity.java
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText editTextInput;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editTextInput = findViewById(R.id.editTextInput);
+
+        Button buttonUpperCase = findViewById(R.id.buttonUpperCase);
+        buttonUpperCase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = editTextInput.getText().toString();
+                if (!input.isEmpty()) {
+                    showToast(input.toUpperCase());
+                } else {
+                    showToast("Please enter a string first.");
+                }
+            }
+        });
+
+        Button buttonLowerCase = findViewById(R.id.buttonLowerCase);
+        buttonLowerCase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = editTextInput.getText().toString();
+                if (!input.isEmpty()) {
+                    showToast(input.toLowerCase());
+                } else {
+                    showToast("Please enter a string first.");
+                }
+            }
+        });
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+}
